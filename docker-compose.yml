@@ -2,43 +2,22 @@ version: '3.6'
 
 services:
   flxwebapi:
-    image: fabreguesm/flxwebapi:2.8.321-serverlicencia
-    hostname: flxwebapi-lote-flexxus-com-ar
-    ports:
-      - '5004:5000'
+    image: fabreguesm/notion-webhook-sync:latest
+    hostname: notion-webhook-sync  
     networks:
-      - traefik      
-    volumes:
-      - 'node_data:/app/data/'
-      - 'factura_data:/app/factura_electronica/'
-      - 'pdf_data:/app/public/pdf/'            
+      - traefik          
     deploy:      
       placement:
         constraints: ["${NODE}"] 
-    environment:
-      - URL_LICENSESERVER=http://10.250.0.68:5006/
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.${SERVICE_NAME}.entrypoints=web"
+        - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${DOMAIN_NAME}`)"
+        - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=5000"      
     logging:
       driver: loki
       options:
-        loki-url: ${LOKI_URL}  
-  sftp:
-    image: atmoz/sftp
-    volumes:
-      - node_data:/home/sftp-user/node-data  
-    ports:
-      - "2224:22"
-    command: "sftp-user:admin:1001:1001:node-data"
-    deploy:
-      placement:
-        constraints: ["${NODE}"]      
-    restart: unless-stopped
-volumes:
-  node_data:
-    name: "${SERVICE_NAME}_node-data"
-  factura_data:
-    name: "${SERVICE_NAME}_factura-data"
-  pdf_data:
-    name: "${SERVICE_NAME}_pdf-data"    
+        loki-url: ${LOKI_URL}    
 networks:
   traefik:
     external:

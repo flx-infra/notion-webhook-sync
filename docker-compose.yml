@@ -1,7 +1,7 @@
 version: '3.6'
 
 services:
-  flxwebapi:
+  notion-webhook-sync:
     image: fabreguesm/notion-webhook-sync:latest
     hostname: notion-webhook-sync  
     networks:

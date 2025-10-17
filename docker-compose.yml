@@ -4,6 +4,8 @@ services:
   notion-webhook-sync:
     image: fabreguesm/notion-webhook-sync:latest
     hostname: notion-webhook-sync  
+    ports:
+      - "5020:5000"
     networks:
       - traefik          
     deploy:      

@@ -14,8 +14,7 @@ services:
         - "traefik.http.routers.${SERVICE_NAME}.entrypoints=web"
         - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${DOMAIN_NAME}`)"
         - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=5000"      
-    environment:
-      - NOTION_TOKEN=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
+    environment:      
       - DB_OKR_ID=19845d247201804a81f5ebb953f0143f
       - DB_KRS_ID=19845d247201807db354f0cce4f52687
       - DB_PROCESOS_ID=21045d2472018023a7faca5c9e4c939d

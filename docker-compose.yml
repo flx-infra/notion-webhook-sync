@@ -14,6 +14,14 @@ services:
         - "traefik.http.routers.${SERVICE_NAME}.entrypoints=web"
         - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${DOMAIN_NAME}`)"
         - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=5000"      
+    environment:
+      - NOTION_TOKEN=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
+      - DB_OKR_ID=19845d247201804a81f5ebb953f0143f
+      - DB_KRS_ID=19845d247201807db354f0cce4f52687
+      - DB_PROCESOS_ID=21045d2472018023a7faca5c9e4c939d
+      - DB_MEJORAS_ID=21045d24720180cf8475c41392942f28
+      - DB_KRSXPROCESOS_ID=22345d2472018055ba38c52ce433a918
+      - DB_KRSXMEJORAS_ID=22345d2472018007b2c7c41697d215ac
     logging:
       driver: loki
       options:
